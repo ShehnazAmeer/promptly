@@ -7,7 +7,7 @@ export default function Menubar() {
         <Menus>
             <Menus.Menu>
                 <Menus.ToggleButton id='header-menu'>
-                    <HiOutlineMenu/>
+                    <HiOutlineMenu className='w-5 h-5 '/>
                 </Menus.ToggleButton >
                 <Menus.List id={'header-menu'} >
                     <Menus.ListButton>

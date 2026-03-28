@@ -7,14 +7,16 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PageNotFound from "./pages/PageNotFount";
-import PromptlyChat from "./pages/Chat";
+import Promptly from "./pages/Promptly";
+import ChatPrt from "./ui/ChatPrt";
 
 const router = createBrowserRouter([
     {
         element: <Applayout />,
         error: <Error />,
         children: [
-            {path:'/promptlyChat', element: <PromptlyChat/> },
+            { path: '/promptly', element: <Promptly /> },
+            {path:'/chatprt',element: <ChatPrt/>},
             { path: '/notes', element: <Notes /> },
             {path:'/settings',element: <Settings/>},
         ],  

@@ -1,4 +1,4 @@
-import { createContext, useContext,useState } from "react";
+import { createContext, useContext,useEffect,useState } from "react";
 import Button from "./Button";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 import { createPortal } from "react-dom";
@@ -8,6 +8,8 @@ const menusContext=createContext();
 export default function Menus({children}) {
     const [openId, setOpenId] = useState('');
     const [toggleBtnPosition, setToggleButtonPosition] = useState(null);
+
+
     function close() {
         setOpenId("")
      }
@@ -40,14 +42,29 @@ function List({ children, id }) {
 
     const ref = useOutsideClick(close, false);
 
+    useEffect(function () {
+        const media = window.matchMedia("(min-width:768px)");
+        function handleChange(e) {
+            if (e.matches) {
+                close();
+            }  
+        };
+        media.addEventListener("change", handleChange);
+
+        return function () {
+            media.removeEventListener("change", handleChange);
+        };
+        
+    }, [close])
+    
     if (openId !== id) return null;
     
-    return (
+    return (    
         createPortal(
             <ul
                 className="w-50 fixed top-20 bg-gray-800 rounded-lg right-30 left-120 "
                 ref={ref}
-                style={{ right: toggleBtnPosition.x, top: toggleBtnPosition.y+20 }}
+                style={{ left: toggleBtnPosition.x+90, top: toggleBtnPosition.y+20 }}
             >
              {children}
             </ul>,document.body   
@@ -62,12 +79,12 @@ function ListButton({ children, onClick }) {
         close();
     }
     return(
-        <li className="w-45 py-5 pl-4 ">
+        <li className="w-45 py-5 pl-4 text-[clamp(1rem,1vw,3rem)] ">
             <Button category='primary' styles='w-1/1 flex' onClick={handleClick} > {children} </Button>
         </li>
     )
 }
-function ToggleButton({ children, id }) {
+function ToggleButton({ children, id}) {
     const { close, open, setToggleButtonPosition, openId } = useContext(menusContext);
 
     function handleClick(e) {
@@ -76,9 +93,10 @@ function ToggleButton({ children, id }) {
         const rect = e.target.closest('button').getBoundingClientRect();
 
         setToggleButtonPosition({
-            x: window.innerWidth - rect.width + 50,
-            y: rect.y + rect.height - 50,
+            x:  rect.right- 310,
+            y: rect.bottom,
         });
+        open
 
         openId === '' || openId !== id ? open(id) : close();
     }
