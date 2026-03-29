@@ -15,12 +15,12 @@ const router = createBrowserRouter([
         element: <Applayout />,
         error: <Error />,
         children: [
-            { path: '/promptly', element: <Promptly /> },
             {path:'/chatprt',element: <ChatPrt/>},
             { path: '/notes', element: <Notes /> },
             {path:'/settings',element: <Settings/>},
         ],  
     },
+    { path: '/promptly', element: <Promptly /> },
     { path: '/', element: <Home /> },
     {path:'/home',loader:()=>redirect('/')},
     { path: '/login', element: <Login /> },
