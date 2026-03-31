@@ -8,7 +8,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PageNotFound from "./pages/PageNotFount";
 import Promptly from "./pages/Promptly";
-import ChatPrt from "./ui/ChatPrt";
+import ChatPrt from "./features/chat/ChatPrt";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
     {
@@ -28,8 +29,13 @@ const router = createBrowserRouter([
     {path:'*', element: <PageNotFound/> }
     
 ]);
+
+const queryClient = QueryClient();
+
 export default function App() {
     return (
-       <RouterProvider router={router}/>
+        <QueryClientProvider>
+             <RouterProvider router={router}/>
+        </QueryClientProvider>
     )
 }
