@@ -4,7 +4,7 @@ export async function getChatResult(userInput) {
       {
         method: "POST",
         headers: {
-          Authorization: "Bearer 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",
+          Authorization: "Bearer ",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -17,4 +17,3 @@ export async function getChatResult(userInput) {
     console.log(data);
 };
 
-//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
